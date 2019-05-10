@@ -71,7 +71,7 @@ Docker build is coming soon, which requires only [docker-compose](https://docs.d
 
 ```bash
 # clone the project
-git clone git@github.com:xcitic/LarVueShop.git
+git clone https://github.com/xcitic/LarVueShop.git
 
 # enter the project directory
 cd LarVueShop
@@ -91,18 +91,19 @@ touch database/database.sqlite
 # Make salt key for laravel
 php artisan key:generate
 
-# Generate key-pair for Passport
-php artisan passport:install
-
-
 # Migrate database
 php artisan migrate
+
+# Generate key-pair for Passport
+php artisan passport:install
 
 # Start backend services listning on port 8000
 php artisan serve --port 8000
 
 # Start frontend services
 npm run watch
+
+### PROJECT IS RUNNING AT http://localhost:8000
 
 ```
 
