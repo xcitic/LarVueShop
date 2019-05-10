@@ -2,11 +2,11 @@
 require('./bootstrap');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Vuex from 'vuex';
 
 // External Modules
 import axios from 'axios';
 import Vuetify from 'vuetify';
+import ElementUI from 'element-ui';
 
 // Internal Modules
 import App from './App';
@@ -17,8 +17,9 @@ import auth from '@/utils/Auth';
 
 // Vue Plugins
 Vue.use(VueRouter);
-Vue.use(Vuex);
 Vue.use(Vuetify);
+// TODO Only include the used elements.
+Vue.use(ElementUI);
 
 // Routing
 const router = new VueRouter({
@@ -56,7 +57,7 @@ axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
 window.auth = auth;
 
 
-
+// Create the Vue instance and mount it to the element id: #app
 const app = new Vue({
     el: '#app',
     router,
