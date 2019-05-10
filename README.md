@@ -72,7 +72,7 @@ Docker build is coming soon, which requires only [docker-compose](https://docs.d
 
 ```bash
 # clone the project
-git clone git@github.com:xcitic/LarVueShop.git
+git clone https://github.com/xcitic/LarVueShop.git
 
 # enter the project directory
 cd LarVueShop
@@ -103,7 +103,6 @@ php artisan serve --port 8000
 
 # Start frontend services
 npm run watch
-
 
 ##### PROJECT IS RUNNING ON #####
       http://localhost:8000
