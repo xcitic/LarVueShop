@@ -11,5 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('frontend/app.js', 'public/js')
-    .sass('frontend/assets/sass/app.scss', 'public/css');
+mix.webpackConfig({
+  resolve: {
+    extensions: ['.js', '.vue'],
+    alias: {
+      '@': __dirname + '/frontend'
+    }
+  }
+});
+
+mix.js('frontend/app.js', 'public/js/app.js')
+    .sass('frontend/assets/sass/app.scss', 'public/css/app.css')
+    .version();

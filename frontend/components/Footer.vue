@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <v-container>
+    <h1>Footer</h1>
+  </v-container>
 
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: 'Footer',
 }
 </script>
 
