@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
   // if user has token saved, include it in every request header
   if (token) {
-    axios.defaults.headers.common['Authorization'] = 'bearer ' + token
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
   }
   // match any routes that has requireAuth set to true in router
   if(to.matched.some(record => record.meta.requiresAuth)){

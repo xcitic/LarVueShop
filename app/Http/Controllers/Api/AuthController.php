@@ -54,6 +54,7 @@ class AuthController extends Controller
       'email' => 'required|string|email|max:255',
       'password' => 'required|string|min:6|max:255',
     ]);
+
     if ($validator->fails())
     {
       return response([ 'errors' => $validator->errors()->all()], 422);
@@ -61,21 +62,17 @@ class AuthController extends Controller
 
     $user = User::where('email', $request->email)->first();
     // if found user instance
-    if ($user) {
-      $password = password_verify($request->password, $user->password);
-      if ($password)
+    if ($user !== null) {
+      if (password_verify($request->password, $user->password))
       {
         // Create an passport auth token
         $token = $user->createToken('bearer')->accessToken;
         $response = ['token' => $token, 'user' => $user];
         return response($response, 200);
       }
-      else
-      {
-        $response = 'Wrong email or password';
-        return response($response, 422);
-      }
     }
+    // Did not find any a match between password and email
+    return response(['errors' => 'Wrong email or password'], 422);
   }
 
 }
