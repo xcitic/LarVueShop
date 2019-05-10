@@ -198,7 +198,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: _router__WEBPACK_IMPORTED_MODULE_6__["default"]
-}); // Enable Auth as global
+}); // Base URL for the API
+
+axios__WEBPACK_IMPORTED_MODULE_3___default.a.defaults.baseURL = "".concat("http://localhost:8000", "/api"); // Make auth global
 
 window.auth = _utils_Auth__WEBPACK_IMPORTED_MODULE_8__["default"];
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
@@ -755,7 +757,7 @@ __webpack_require__.r(__webpack_exports__);
           token: resp.data.token,
           user: resp.data.user
         };
-        commit('auth_succes', data);
+        commit('auth_success', data);
         resolve(resp);
       }) // On failure clear all local data
       ["catch"](function (err) {

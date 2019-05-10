@@ -14,7 +14,7 @@ export default {
                  token: resp.data.token,
                  user: resp.data.user
                }
-               commit('auth_succes', data)
+               commit('auth_success', data)
                resolve(resp)
              })
              // On failure clear all local data

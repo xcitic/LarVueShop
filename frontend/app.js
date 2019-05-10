@@ -26,7 +26,10 @@ const router = new VueRouter({
   routes
 });
 
-// Enable Auth as global
+// Base URL for the API
+axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
+
+// Make auth global
 window.auth = auth;
 
 
