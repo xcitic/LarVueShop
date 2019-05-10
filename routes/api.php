@@ -13,11 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+// Unauthenticated Routes
 Route::group(['middleware' => ['json_response']], function() {
   Route::post('/login', 'Api\AuthController@login');
   Route::post('/register', 'Api\AuthController@register');
+});
+
+// Authenticated Routes
+Route::group(['middleware' => ['auth:api', 'json_response']], function() {
+  // Test Route to get current user session
+  Route::get('/user', function (Request $request) {
+    return $request->user();
+  });
 });

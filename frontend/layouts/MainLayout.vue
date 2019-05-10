@@ -2,7 +2,7 @@
   <v-app>
     <NavBar />
     <v-container>
-      <router-view></router-view>
+      <router-view :key="key" />
     </v-container>
     <Footer />
   </v-app>
