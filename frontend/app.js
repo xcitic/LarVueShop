@@ -26,6 +26,29 @@ const router = new VueRouter({
   routes
 });
 
+// Authenticate routes and set headers
+router.beforeEach((to, from, next) => {
+  // send action to vuex, populate localstorage
+  store.dispatch('auth/fetchToken');
+  const token = localStorage.getItem('token');
+  // if user has token saved, include it in every request header
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = 'bearer ' + token
+  }
+  // match any routes that has requireAuth set to true in router
+  if(to.matched.some(record => record.meta.requiresAuth)){
+    // check to see if authentication token exists
+    // TODO check on client that the auth token is real and not spoofed
+    if(token) {
+      return next()
+    }
+    // if user does not have token redirect to login page
+    return next('/login')
+  }
+    // return next request
+    return next()
+})
+
 // Base URL for the API
 axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
 

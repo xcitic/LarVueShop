@@ -15,7 +15,7 @@ export default {
                  user: resp.data.user
                }
                commit('auth_success', data)
-               resolve(resp)
+               resolve()
              })
              // On failure clear all local data
              .catch((err) => {
@@ -37,7 +37,7 @@ export default {
                user: resp.data.user
              }
              commit('auth_success', data)
-             resolve(resp)
+             resolve()
            })
            .catch((err) => {
              commit('auth_error', err)
@@ -45,5 +45,22 @@ export default {
              reject(err)
            })
     })
+  },
+
+  logout({commit})
+  {
+    commit('logout')
+  },
+
+  fetchToken({commit})
+  {
+    // fetch data from localstorage
+    // TODO json.parse fails if 'user' is not json format
+      let data = {
+        token: localStorage.getItem('token'),
+        user: JSON.parse(localStorage.getItem('user'))
+    }
+    // send mutation to vuex
+    commit('updateToken', data)
   }
 }

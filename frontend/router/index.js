@@ -1,11 +1,15 @@
 // Layouts
 import MainLayout from '@/layouts/MainLayout';
+import DashboardLayout from '@/layouts/DashboardLayout';
 
 // View
 import Landing from '@/views/Landing';
 import Products from '@/views/Products';
 import Login from '@/views/Login';
 import Register from '@/views/Register';
+
+// Authenticated Views
+import Dashboard from '@/views/Dashboard';
 
 const routes = () => {
   return [
@@ -16,7 +20,11 @@ const routes = () => {
         {path: '/register', name: 'Register', component: Register},
         {path: '/login', name: 'Login', component: Login},
       ]
-    }
+    },
+    {path: '/dashboard', component: DashboardLayout,
+      children: [
+        {path: '', name: 'Dashboard', component: Dashboard, meta: {requiresAuth: true}}
+      ]}
   ]
 }
 

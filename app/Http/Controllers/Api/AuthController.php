@@ -52,7 +52,7 @@ class AuthController extends Controller
     // Validate login form data before processing
     $validator = Validator::make($request->all(), [
       'email' => 'required|string|email|max:255',
-      'password' => 'required|string|max:255',
+      'password' => 'required|string|min:6|max:255',
     ]);
     if ($validator->fails())
     {

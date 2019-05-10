@@ -31,7 +31,7 @@
 
               <li class="nav-item dropdown" v-if="isLoggedIn">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Welcome user
+                  Welcome {{user.name}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <router-link class="dropdown-item" :to="{ name: 'Dashboard'}">Dashboard</router-link>
@@ -47,14 +47,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'NavBar',
 
-  data() {
-    return {
-      isLoggedIn: false,
+  computed: mapState({
+    isLoggedIn: state => state.auth.authToken,
+    user: state => state.auth.user
+  }),
+
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout')
+      .then(() => {
+        this.$router.push('/')
+      })
     }
-  },
+  }
 }
 </script>
 
