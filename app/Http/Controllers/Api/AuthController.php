@@ -33,8 +33,8 @@ class AuthController extends Controller
     $request['password'] = password_hash($request['password'], PASSWORD_DEFAULT);
     $user = User::create($request->toArray());
 
-    // TODO SETUP AUTH TOKEN
-    $token = 'SETUP TOKEN';
+    // Create a Passport token and attach it
+    $token = $user->createToken('bearer')->accessToken;
     $response = ['token' => $token, 'user' => $user];
     // Send response with $token String and $user Object
     return response($response, 200);
@@ -65,8 +65,8 @@ class AuthController extends Controller
       $password = password_verify($request->password, $user->password);
       if ($password)
       {
-        // TODO SETUP AUTH TOKEN
-        $token = 'SETUP TOKEN ';
+        // Create an passport auth token
+        $token = $user->createToken('bearer')->accessToken;
         $response = ['token' => $token, 'user' => $user];
         return response($response, 200);
       }
