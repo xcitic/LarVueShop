@@ -9,7 +9,7 @@ import Register from '@/views/Register';
 
 const routes = () => {
   return [
-    {path: '/', name: 'MainLayout', component: MainLayout,
+    {path: '/', component: MainLayout,
       children: [
         {path: '', name: 'Landing', component: Landing},
         {path: '/products', name: 'Products', component: Products},

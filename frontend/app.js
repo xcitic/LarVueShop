@@ -11,7 +11,8 @@ import Vuetify from 'vuetify';
 // Internal Modules
 import App from './App';
 import routes from '@/router';
-import stores from '@/stores';
+import store from '@/stores';
+import auth from '@/utils/Auth';
 
 
 // Vue Plugins
@@ -25,11 +26,8 @@ const router = new VueRouter({
   routes
 });
 
-// Vuex Store
-const store = new Vuex.Store({
-    stores
-});
-
+// Enable Auth as global
+window.auth = auth;
 
 
 
