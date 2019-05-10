@@ -32,7 +32,7 @@ With VueShop you get a good setup to keep building out new functionality.
 
 ## Preparation
 
-Local Project requirements are: Having installed [composer](https://getcomposer.org) [node](https://nodejs.org/), [git](https://git-scm.com/).
+Local Project requirements are: Having installed [composer](https://getcomposer.org), [node](https://nodejs.org/) and [git](https://git-scm.com/).
 
 Docker build is coming soon, which requires only [docker-compose](https://docs.docker.com/compose/install/)
 
@@ -41,7 +41,8 @@ Docker build is coming soon, which requires only [docker-compose](https://docs.d
 
 ```
 # Application Features
-- Laravel backend for DB, API and ORM
+- Laravel backend for DB queries, API and ORM
+- Passport for JWT authentication.
 - VueJS Single Page Application Setup
 - VueRouter for clientside routing
 - Vuex for statemanagement
@@ -85,7 +86,7 @@ npm install
 # Setting up environment variables
 cp .env-example .env
 
-# Setup a sqlite database (temporary, coming a better database setup soon)
+# Setup a local sqlite database (temporary, coming a better database setup soon)
 touch database/database.sqlite
 
 # Make salt key for laravel
@@ -103,8 +104,8 @@ php artisan serve --port 8000
 # Start frontend services
 npm run watch
 
-### PROJECT IS RUNNING AT http://localhost:8000
-
+##### PROJECT IS RUNNING ON #####
+      http://localhost:8000
 ```
 
 
