@@ -16,7 +16,7 @@ mix.webpackConfig({
     extensions: ['.js', '.vue'],
     alias: {
       '@': __dirname + '/frontend'
-    }
+    },
   }
 });
 
