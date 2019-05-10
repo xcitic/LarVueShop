@@ -41,7 +41,8 @@ Docker build is coming soon, which requires only [docker-compose](https://docs.d
 
 ```
 # Application Features
-- Laravel backend for DB, API and ORM
+- Laravel backend for DB queries, API and ORM
+- Passport for JWT authentication. 
 - VueJS Single Page Application Setup
 - VueRouter for clientside routing
 - Vuex for statemanagement
@@ -93,7 +94,6 @@ php artisan key:generate
 
 # Generate key-pair for Passport
 php artisan passport:install
-
 
 # Migrate database
 php artisan migrate
