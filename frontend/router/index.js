@@ -11,14 +11,16 @@ import Register from '@/views/Register';
 // Authenticated Views
 import Dashboard from '@/views/Dashboard';
 
+
+
 const routes = () => {
   return [
     {path: '/', component: MainLayout,
       children: [
         {path: '', name: 'Landing', component: Landing},
         {path: '/products', name: 'Products', component: Products},
-        {path: '/register', name: 'Register', component: Register},
-        {path: '/login', name: 'Login', component: Login},
+        {path: '/register', name: 'Register', component: Register, meta: {guest: true}},
+        {path: '/login', name: 'Login', component: Login, meta: {guest: true}},
       ]
     },
     {path: '/dashboard', component: DashboardLayout,
