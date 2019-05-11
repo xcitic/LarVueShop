@@ -1,8 +1,9 @@
 <template>
   <v-app>
+    <v-container fluid>
     <TopNavBar />
-    <SideNavBar />
-    <router-view :key="key"/>
+    <SideNavBar class="sidenav" />
+  </v-container>
   </v-app>
 </template>
 
@@ -23,4 +24,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.fluid{
+    padding: 0;
+    margin: 0;
+  }
+  
 </style>

@@ -1,44 +1,55 @@
 <template>
-<el-menu
-  :default-active="activeIndex"
-  class="text-align"
-  mode="horizontal"
-  @select="handleSelect"
-  active-text-color="#ffd04b"
+  <el-menu
+    class="text-align"
+    mode="horizontal"
+    @select="handleSelect"
+    menu-trigger="click"
+    >
 
-  >
-    <el-menu-item index="1">Processing Center</el-menu-item>
-    <el-submenu index="2">
-      <template slot="title">Workspace</template>
-      <el-menu-item index="2-1">item one</el-menu-item>
-      <el-menu-item index="2-2">item two</el-menu-item>
-      <el-menu-item index="2-3">item three</el-menu-item>
-      <el-submenu index="2-4">
-        <template slot="title">item four</template>
-        <el-menu-item index="2-4-1">item one</el-menu-item>
-        <el-menu-item index="2-4-2">item two</el-menu-item>
-        <el-menu-item index="2-4-3">item three</el-menu-item>
+      <Hamburger class="float-left ma-3"/>
+
+    <!-- TODO Logo setup
+    <Logo />
+    -->
+    <el-submenu index="2" class="float-right">
+      <template slot="title">Hello {{ user_name }}</template>
+      <el-menu-item index="2-2">Profile</el-menu-item>
+      <el-menu-item index="2-3" @click="logout">Logout</el-menu-item>
       </el-submenu>
-    </el-submenu>
-    <el-menu-item index="3" disabled>Info</el-menu-item>
-    <el-menu-item index="4"><a>Orders</a></el-menu-item>
+
   </el-menu>
 
 
 </template>
 
 <script>
+import Hamburger from './Hamburger'
+
 export default {
   name: 'TopNavBar',
-  data() {
-      return {
-        activeIndex: '1',
-      };
+  components: {
+    Hamburger
+  },
+  computed: {
+    isCollapse() {
+      return this.$store.state.dashboard.isCollapse
     },
+    user_name() {
+      return this.$store.state.auth.user.name
+    }
+  },
+
+
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
-      }
+      },
+      logout() {
+        this.$store.dispatch('auth/logout')
+        .then(() => {
+          this.$router.push('/')
+        })
+      },
     }
 }
 </script>

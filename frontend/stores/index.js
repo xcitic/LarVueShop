@@ -1,17 +1,19 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 
 // Import different Stores as Seperate Modules with Namespaces
   // Auth Modules
-import auth from './auth';
+import auth from './auth'
+import dashboard from './dashboard'
 
 
 const store = new Vuex.Store({
   modules: {
-    auth
+    auth,
+    dashboard
   }
 })
 
