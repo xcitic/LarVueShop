@@ -1,23 +1,23 @@
 // Core Imports
-require('./bootstrap');
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+require('./bootstrap')
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 // External Modules
-import axios from 'axios';
-import Vuetify from 'vuetify';
-import ElementUI from 'element-ui';
+import axios from 'axios'
+import Vuetify from 'vuetify'
+import ElementUI from 'element-ui'
 
 // Internal Modules
-import App from './App';
-import store from '@/stores';
-import auth from '@/utils/Auth';
+import App from './App'
+import store from '@/stores'
+import auth from '@/utils/Auth'
 import router from '@/router'
 
 // Vue Plugins
-Vue.use(Vuetify);
+Vue.use(Vuetify)
 // TODO Only include the used elements.
-Vue.use(ElementUI);
+Vue.use(ElementUI)
 
 
 

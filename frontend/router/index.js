@@ -1,6 +1,6 @@
 // Core imports
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 // Internal Modules
 import routes from '@/router/routes'

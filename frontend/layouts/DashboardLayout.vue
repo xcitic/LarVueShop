@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import NavBar from '@/components/dashboard/NavBar';
-import TopNavBar from '@/components/dashboard/TopNavBar';
-import SideNavBar from '@/components/dashboard/SideNavBar';
+import NavBar from '@/components/dashboard/NavBar'
+import TopNavBar from '@/components/dashboard/TopNavBar'
+import SideNavBar from '@/components/dashboard/SideNavBar'
 
 export default {
   name: 'DashboardLayout',
@@ -28,5 +28,5 @@ export default {
     padding: 0;
     margin: 0;
   }
-  
+
 </style>
