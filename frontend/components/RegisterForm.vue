@@ -3,11 +3,12 @@
     <div class="card-body">
       <h5 class="card-title text-center">Register</h5>
       <div class="form-signin">
-
+        <form>
         <div class="form-control-group">
           <input type="text"
             v-model="input.name"
             class="form-control"
+            autocomplete="name"
             placeholder="Name"
             name="name"
             required autofocus>
@@ -17,6 +18,7 @@
           <input type="email"
           v-model="input.email"
           class="form-control"
+          autocomplete="username"
           placeholder="Email address"
           name="email"
           required>
@@ -26,6 +28,7 @@
           <input type="password"
           v-model="input.password"
           class="form-control"
+          autocomplete="new-password"
           placeholder="Password"
           name="password"
           required>
@@ -35,15 +38,17 @@
           <input type="password"
           v-model="input.password_confirmation"
           class="form-control"
+          autocomplete="new-password"
           placeholder="Repeat Password"
           name="password_confirmation"
           required>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block text-uppercase" @click="submit()" :disabled="loading">Register</button>
+        <button class="btn btn-lg btn-primary btn-block text-uppercase" @click.prevent="submit" :disabled="loading">Register</button>
         <hr class="my-4">
         <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Register with Google</button>
         <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Register with Facebook</button>
+      </form>
       </div>
 
     </div>
