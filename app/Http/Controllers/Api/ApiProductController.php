@@ -25,10 +25,20 @@ class ApiProductController extends Controller
     {
       $product = Product::findOrFail($id);
 
-      $product->like++;
+      $product->likes++;
       $product->update();
 
       return response($product, 200);
+    }
+
+    public function dislike($id)
+    {
+      $product = Product::findOrFail($id);
+      $product->likes--;
+      $product->update();
+
+      return response($product, 200);
+
     }
 
     /**
