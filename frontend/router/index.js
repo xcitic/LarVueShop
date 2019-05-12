@@ -1,31 +1,52 @@
-// Layouts
-import MainLayout from '@/layouts/MainLayout';
-import DashboardLayout from '@/layouts/DashboardLayout';
+// Core imports
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-// View
-import Landing from '@/views/Landing';
-import Products from '@/views/Products';
-import Login from '@/views/Login';
-import Register from '@/views/Register';
+// Internal Modules
+import routes from '@/router/routes'
+import store from '@/stores'
 
-// Authenticated Views
-import Dashboard from '@/views/Dashboard';
+// Vue plugin
+Vue.use(VueRouter)
 
-const routes = () => {
-  return [
-    {path: '/', component: MainLayout,
-      children: [
-        {path: '', name: 'Landing', component: Landing},
-        {path: '/products', name: 'Products', component: Products},
-        {path: '/register', name: 'Register', component: Register},
-        {path: '/login', name: 'Login', component: Login},
-      ]
-    },
-    {path: '/dashboard', component: DashboardLayout,
-      children: [
-        {path: '', name: 'Dashboard', component: Dashboard, meta: {requiresAuth: true}}
-      ]}
-  ]
+
+// Instanciate Router
+const router = new VueRouter({
+  mode: 'history',
+  routes
+});
+
+// Authenticate routes and set headers
+router.beforeEach((to, from, next) => {
+// send action to vuex, populate localstorage
+store.dispatch('auth/fetchToken');
+const token = localStorage.getItem('token');
+// if user has token saved, include it in every request header
+if (token) {
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+}
+// match any routes that has requireAuth set to true in router
+if(to.matched.some(record => record.meta.requiresAuth)){
+  // check to see if authentication token exists
+  // TODO check on client that the auth token is real and not spoofed
+  if(token) {
+    // Post to server and check that the token is real..?
+    // Is there any other way to perform the token check to avoid client side token injection?
+    return next()
+  }
+  // if user does not have token redirect to login page
+  return next('/login')
 }
 
-export default routes();
+// If user is already authenticated don't let them enter register and login, redirect to dashboard
+if(to.matched.some(record => record.meta.guest)) {
+  if(token) {
+    return next('/dashboard')
+  }
+}
+  // the default action
+  return next()
+})
+
+
+export default router;

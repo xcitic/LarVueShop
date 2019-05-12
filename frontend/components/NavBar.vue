@@ -14,11 +14,19 @@
 
           <div class="collapse navbar-collapse " id="navbarSupportedContent">
 
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item" >
-                <router-link class="nav-link" :to="{ name: 'Products' }">Browse Products</router-link>
-              </li>
-            </ul>
+
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <router-link class="nav-link" :to="{ name: 'Landing' }">LarVueShop</router-link>
+                </li>
+              </ul>
+
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <router-link class="nav-link" :to="{ name: 'Products' }">Browse Products</router-link>
+                </li>
+              </ul>
+
 
             <ul class="navbar-nav ml-auto">
 

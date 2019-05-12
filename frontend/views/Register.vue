@@ -5,14 +5,11 @@
         <RegisterForm />
       </div>
     </div>
-
-
   </v-container>
-
 </template>
 
 <script>
-import RegisterForm from '@/components/RegisterForm';
+import RegisterForm from '@/components/RegisterForm'
 
 export default {
   name: 'Register',

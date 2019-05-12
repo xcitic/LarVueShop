@@ -32,14 +32,6 @@
     </el-menu-item>
   </el-menu>
 
-
-    <v-container class="content-container" :class="{ 'content-container-collapse' : isCollapse}">
-
-      <router-view />
-
-    </v-container>
-
-
 </div>
 </template>
 
@@ -70,13 +62,7 @@ export default {
   position: absolute;
   overflow-y:hidden-md-and-up;
 }
-.content-container:not(.content-container-collapse) {
-  padding-left:225px;
-}
 
-.content-container-collapse {
-  padding-left: 100px;
-}
 
 .el-menu--collapse{
   height: 100%;
