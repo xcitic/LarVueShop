@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['json_response']], function() {
   Route::post('/login', 'Api\AuthController@login');
   Route::post('/register', 'Api\AuthController@register');
+  Route::get('/products', 'Api\ProductController@index');
+  Route::get('/products/{id}', 'Api\ProductController@show');
 });
 
 // Authenticated Routes
