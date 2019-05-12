@@ -19,6 +19,8 @@ Route::group(['middleware' => ['json_response']], function() {
   Route::post('/register', 'Api\AuthController@register');
   Route::get('/products', 'Api\ProductController@index');
   Route::get('/products/{id}', 'Api\ProductController@show');
+  Route::post('/product/like/{id}', 'Api\ProductController@like');
+  Route::post('/product/dislike/{id}', 'Api\ProductController@dislike');
 });
 
 // Authenticated Routes

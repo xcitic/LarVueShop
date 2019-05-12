@@ -23,7 +23,7 @@
 
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <router-link class="nav-link" :to="{ name: 'Products' }">Browse Products</router-link>
+                  <router-link class="nav-link" :to="{ name: 'Landing' }">Browse Products</router-link>
                 </li>
               </ul>
 
