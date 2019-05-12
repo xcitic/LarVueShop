@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>Welcome to the dashboard</h1>
-  </div>
+  <v-container>
+    <h1>This is the dashboard</h1>
+  </v-container>
 
 </template>
 

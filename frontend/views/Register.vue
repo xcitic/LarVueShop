@@ -5,10 +5,7 @@
         <RegisterForm />
       </div>
     </div>
-
-
   </v-container>
-
 </template>
 
 <script>
