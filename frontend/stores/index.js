@@ -9,12 +9,14 @@ Vue.use(Vuex)
 import auth from './auth'
 import dashboard from './dashboard'
 import products from './products'
+import shop from './shop'
 
 
 const store = new Vuex.Store({
   modules: {
     products,
     auth,
+    shop,
     dashboard
   }
 })

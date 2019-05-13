@@ -60,8 +60,4 @@ export default {
     })
   },
 
-  addToCart({commit}) {
-    console.log('added To cart')
-  }
-
 }

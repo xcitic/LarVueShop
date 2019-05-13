@@ -21,6 +21,15 @@ class Auth {
     axios.defaults.headers.common['Authorization'] = ''
   }
 
+  checkUser()
+  {
+    let user_token = localStorage.getItem('token');
+    if (user_token) {
+      return true
+    }
+    return false
+  }
+
 }
 
 export default new Auth();

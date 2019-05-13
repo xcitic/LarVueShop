@@ -88,7 +88,11 @@ export default {
     },
 
     addToCart() {
-      this.$store.dispatch('products/addToCart', this.product.id)
+      let payload = {
+        product_id: this.product.id,
+        quantity: 1
+      }
+      this.$store.dispatch('shop/addToCart', payload)
     },
 
 
