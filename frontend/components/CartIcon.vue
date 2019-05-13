@@ -24,7 +24,7 @@ export default {
 
   methods: {
     showCart() {
-      console.log('show cart');
+      this.$router.push('/cart')
     },
     fetchCart() {
       this.$store.dispatch('shop/fetchCart')

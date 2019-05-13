@@ -14,7 +14,7 @@ export default {
               })
   },
 
-  getOneProduct({commit}, id) {
+  getOneProduct({state, commit}, id) {
     return new Promise((resolve,reject) => {
       axios.get('/product/' + id)
           .then(({ data }) => {

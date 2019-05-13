@@ -31,5 +31,5 @@ export default {
     state.status = error
   },
 
-  
+
 }
