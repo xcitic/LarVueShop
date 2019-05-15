@@ -18,9 +18,11 @@ Route::group(['middleware' => ['json_response']], function() {
   Route::post('/login', 'Api\AuthController@login');
   Route::post('/register', 'Api\AuthController@register');
   Route::get('/products', 'Api\ProductController@index');
-  Route::get('/products/{id}', 'Api\ProductController@show');
+  Route::get('/product/{id}', 'Api\ProductController@show');
   Route::post('/product/like/{id}', 'Api\ProductController@like');
   Route::post('/product/dislike/{id}', 'Api\ProductController@dislike');
+
+
 });
 
 // Authenticated Routes
@@ -29,4 +31,13 @@ Route::group(['middleware' => ['auth:api', 'json_response']], function() {
   Route::get('/user', function (Request $request) {
     return $request->user();
   });
+
+
+  Route::get('/cart', 'Api\CartController@getCart');
+  Route::get('/cart/products', 'Api\OrderController@getProducts');
+  Route::post('/product/cart/add/{id}/{quantity}', 'Api\CartController@addToCart');
+  Route::post('/product/cart/remove/{id}', 'Api\CartController@removeFromCart');
+  Route::post('/product/cart/empty', 'Api\CartController@emptyCart');
+
+  Route::post('/cart/payment', 'Api\OrderController@payment');
 });

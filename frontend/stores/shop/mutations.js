@@ -45,6 +45,15 @@ export default {
   emptyCart(state) {
     state.cart = []
     localStorage.removeItem('cart')
-  }
+  },
+
+  fetchCartProducts_success(state, payload) {
+    state.status = 'Success'
+    state.cart_products = payload
+  },
+
+  fetchCartProducts_error(state, error) {
+    state.status = error
+  },
 
 }

@@ -21,11 +21,6 @@
         <v-stepper-content step="1">
           <!-- Cart Content -->
           <CartContent />
-          <v-card
-            class="mb-5"
-            color="grey lighten-1"
-            height="200px"
-          ></v-card>
 
           <v-container class="centered">
             <v-btn flat color="secondary" @click="backToShopping">Continue Shopping</v-btn>
@@ -110,10 +105,18 @@ import CartContent from '@/components/CartContent'
 
 export default {
   name: 'Cart',
+  components: {
+    CartContent,
+
+  },
   data() {
     return {
       e1: 0
     }
+  },
+
+  mounted() {
+      this.$store.dispatch('shop/fetchCartProducts')
   },
 
   methods: {

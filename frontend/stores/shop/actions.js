@@ -2,7 +2,7 @@ export default {
 
   fetchCart({commit, state}) {
     // If user is authenticated create a api promise call
-    if(auth.checkUser())
+    if( auth.checkUser() ) {
       return new Promise((resolve, reject) => {
         axios.get('/cart')
              .then(({ data }) => {
@@ -13,7 +13,8 @@ export default {
                commit('fetchCart_error', err)
                reject()
              })
-      })
+         })
+      }
       // If user is not logged in
     else {
 
@@ -36,7 +37,7 @@ export default {
 
   addToCart({commit}, payload) {
     // If user is authenticated create api promise
-    if(auth.checkUser())
+    if( auth.checkUser() ) {
       return new Promise((resolve, reject) => {
         axios.post(`/product/cart/add/${payload.product_id}/${payload.quantity}`)
              .then(({ data }) => {
@@ -47,7 +48,8 @@ export default {
                commit('addToCart_error', err)
                reject()
              })
-      })
+         })
+      }
       else {
         // if user is not authenticated push to localStorage
 
@@ -56,5 +58,27 @@ export default {
       }
 
   },
+
+  fetchCartProducts({commit}) {
+    if (auth.checkUser()) {
+      return new Promise((resolve, reject) => {
+        axios.get('/cart/products')
+             .then(({data}) => {
+               commit('fetchCartProducts_success', data)
+               resolve()
+             })
+             .catch((err) => {
+               commit('fetchCartProducts_error', err.message)
+               reject(err.message)
+             })
+      })
+    }
+    else {
+      // TODO user is not authenticated
+      // Fetch products from localStorage
+      // User should be able to complete order without being logged in!
+    }
+
+  }
 
 }

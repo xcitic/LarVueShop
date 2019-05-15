@@ -8,6 +8,7 @@ export default {
   state: {
     cart: [],
     orders: {},
+    cart_products: [],
     loading: false,
     status: '',
   },

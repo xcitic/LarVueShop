@@ -28,6 +28,9 @@ axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
 // Make auth global
 window.auth = auth;
 
+// Test if Store can be access globally
+window.store = store;
+
 
 // Create the Vue instance and mount it to the element id: #app
 const app = new Vue({
