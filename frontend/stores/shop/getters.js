@@ -3,5 +3,13 @@ export default {
     return state.cart_products
   },
 
+  productTotal: state => {
+    
+  },
+
+  orderTotal: state => {
+
+  }
+
 
 }

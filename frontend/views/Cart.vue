@@ -38,12 +38,8 @@
 
         <v-stepper-content step="2">
           <!-- Order Summary and Shipping information -->
-          <v-card
-            class="mb-5"
-            color="grey lighten-1"
-            height="200px"
-          ></v-card>
-
+          <OrderSummary />
+          <OrderDetails />
 
           <v-btn flat @click="e1 = 1">Back</v-btn>
           <v-btn
@@ -57,11 +53,8 @@
 
         <v-stepper-content step="3">
           <!-- Payment Information -->
-          <v-card
-            class="mb-5"
-            color="grey lighten-1"
-            height="200px"
-          ></v-card>
+          <OrderSummary />
+          <OrderPayment />
 
 
           <v-btn flat @click="e1 = 2">Back</v-btn>
@@ -77,12 +70,7 @@
 
         <v-stepper-content step="4">
           <!-- Payment Receipt -->
-          <v-card
-            class="mb-5"
-            color="grey lighten-1"
-            height="200px"
-          ></v-card>
-
+          <OrderReceipt />
 
           <v-btn flat @click="e1 = 3">Back</v-btn>
 
@@ -101,12 +89,20 @@
 
 <script>
 import { mapState } from 'vuex'
-import CartContent from '@/components/CartContent'
+import CartContent from '@/components/cart/CartContent'
+import OrderSummary from '@/components/order/Summary'
+import OrderDetails from '@/components/order/Details'
+import OrderPayment from '@/components/order/Payment'
+import OrderReceipt from '@/components/order/Receipt'
 
 export default {
   name: 'Cart',
   components: {
     CartContent,
+    OrderSummary,
+    OrderDetails,
+    OrderPayment,
+    OrderReceipt
 
   },
   data() {
