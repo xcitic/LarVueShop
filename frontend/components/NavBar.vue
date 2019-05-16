@@ -23,12 +23,13 @@
 
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <router-link class="nav-link" :to="{ name: 'Products' }">Browse Products</router-link>
+                  <router-link class="nav-link" :to="{ name: 'Landing' }">Browse Products</router-link>
                 </li>
               </ul>
 
 
             <ul class="navbar-nav ml-auto">
+              <CartIcon />
 
               <li class="nav-item" v-if="!isLoggedIn">
                 <router-link class="nav-link" :to="{ name: 'Login', params: {} }">Login</router-link>
@@ -56,9 +57,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import CartIcon from '@/components/cart/CartIcon'
 
 export default {
   name: 'NavBar',
+  components: {
+    CartIcon
+  },
 
   computed: mapState({
     isLoggedIn: state => state.auth.authToken,
