@@ -6,6 +6,13 @@
         <v-flex shrink pa-3 sm3 v-for="product in products" :key="product.id" >
             <ProductCard :product="product"  />
           </v-flex>
+          <!-- <div class="text-xs-center">
+            <v-pagination
+              v-model="page"
+              :length="6"
+            ></v-pagination>
+          </div> -->
+
       </v-layout>
     </v-container>
   </div>
@@ -24,8 +31,12 @@ export default {
   computed:
     mapState({
       products: state => state.products.products
-    })
-  ,
+    }),
+  data() {
+    return {
+      page: 1,
+    }
+  },
 
   mounted() {
     this.$store.dispatch('products/getProducts')

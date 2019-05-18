@@ -20,7 +20,7 @@
 
         <v-stepper-content step="1">
           <!-- Cart Content -->
-          <CartContent />
+          <CartContent :products="products" />
 
           <v-container class="centered">
             <v-btn flat color="secondary" @click="backToShopping">Continue Shopping</v-btn>
@@ -107,15 +107,23 @@ export default {
   },
   data() {
     return {
-      e1: 0
+      e1: 0,
     }
   },
 
+  computed:
+    mapState({
+      products: state => state.shop.cart_products
+    }),
+
   mounted() {
-      this.$store.dispatch('shop/fetchCartProducts')
+      this.fetchProducts()
   },
 
   methods: {
+    fetchProducts() {
+      this.$store.dispatch('shop/fetchCartProducts')
+    },
     backToShopping() {
       this.$router.push('/')
     },

@@ -2,14 +2,14 @@
   <div>
 
     <div>
-      <OrderSummary />
+      
     </div>
 
     <div class="payment_option">
       <Stripe/>
       <Paypal />
     </div>
-    
+
   </div>
 
 

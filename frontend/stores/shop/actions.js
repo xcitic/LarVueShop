@@ -59,6 +59,26 @@ export default {
 
   },
 
+  removeFromCart({commit}, item) {
+    if (auth.checkUser() ) {
+      return new Promise((resolve, reject) => {
+        axios.post(`/product/cart/remove/${item}`)
+              .then(({ data }) => {
+                commit('removeFromCart_success', data)
+                resolve()
+              })
+              .catch((err) => {
+                commit('removeFromCart_error', err)
+                reject()
+              })
+      })
+    }
+    else {
+      // user is not authenticated only modify localStorage
+      commit('removeFromCart_success', payload)
+    }
+  },
+
   fetchCartProducts({commit}) {
     if (auth.checkUser()) {
       return new Promise((resolve, reject) => {

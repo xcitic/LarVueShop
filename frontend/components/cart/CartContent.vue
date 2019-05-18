@@ -1,11 +1,34 @@
 <template>
 
 <v-content>
-  <el-table :data="products" style="width: 100%">
-    <el-table-column prop="title" label="Product" width="180"/>
-    <el-table-column prop="price" label="Price" width="180"/>
-    <el-table-column prop="quantity" label="Qty" width="180" />
-  </el-table>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Picture</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="product in products" v-model="products">
+        <td>{{product.image}}</td>
+        <td>{{product.title}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.quantity * product.price}}</td>
+        <td>
+          <v-btn color="warning" prop="id" @click="removeFromCart(product.id)">Delete</v-btn>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
 </v-content>
 
 
@@ -14,24 +37,23 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'CartContent',
 
-  computed: {
-    products: () => store.getters['shop/products'],
-    productTotal: () => store.getters['shop/productTotal'],
-    orderTotal: () => store.getters['shop/orderTotal'],
+  props: {
+    products: Array
+  },
+  
+  methods: {
+    removeFromCart(item) {
+      this.$store.dispatch('shop/removeFromCart', item)
+      .then(
+        this.$store.dispatch('shop/fetchCartProducts')
+      )
+    }
   }
-
-  // mapGetters({
-  //   products,
-  //
-  // })
-
-  // mapState({
-  //   products: state => state.shop.cart_products
-  // }),
 
 
 }
