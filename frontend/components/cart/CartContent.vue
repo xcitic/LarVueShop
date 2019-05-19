@@ -45,7 +45,7 @@ export default {
   props: {
     products: Array
   },
-  
+
   methods: {
     removeFromCart(item) {
       this.$store.dispatch('shop/removeFromCart', item)

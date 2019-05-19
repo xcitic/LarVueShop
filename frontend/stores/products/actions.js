@@ -3,8 +3,7 @@ export default {
     return new Promise((resolve,reject) => {
       axios.get('/products')
           .then(({data}) => {
-              let payload = data.data
-              commit('getProducts_success', payload)
+              commit('getProducts_success', data)
               resolve()
               })
               .catch((err) => {

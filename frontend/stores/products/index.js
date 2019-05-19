@@ -11,7 +11,7 @@ export default {
     products: {},
     inCart: null,
     status: null,
-    cart: []
+    cart: [],
   },
 
   getters,
