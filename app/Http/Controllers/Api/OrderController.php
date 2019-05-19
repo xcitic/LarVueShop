@@ -82,9 +82,35 @@ class OrderController extends Controller
 
       $user = $request->user();
 
+      // TODO Change cart logic soon, to make only one cart be active at any given time.
+      $cart = $user->cart;
+
+      $items = $cart->items;
+
+      $total = 0.00;
+
+      foreach($items as $item)
+      {
+        $product = $item->product;
+        $price = $product->price;
+        $total += $price * $item->quantity;
+      }
+
+      return response($total, 200);
+
       if($user)
       {
+        // set the stripe private key
+        \Stripe\Stripe::setApiKey(config('keys.stripe_token_private'));
 
+        try {
+          $charge = \Stripe\Charge::create([
+            'amount' => $total * 100,
+
+          ]);
+        } catch(Exception $e) {
+          return response($e, 422);
+        }
       }
 
     }

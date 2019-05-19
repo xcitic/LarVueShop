@@ -2,11 +2,11 @@
   <div>
 
     <div>
-      
+
     </div>
 
     <div class="payment_option">
-      <Stripe/>
+      <Stripe />
       <Paypal />
     </div>
 
@@ -14,6 +14,7 @@
 
 
 </template>
+
 
 <script>
 import Summary from '@/components/order/Summary'

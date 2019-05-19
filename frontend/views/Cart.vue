@@ -54,16 +54,31 @@
         <v-stepper-content step="3">
           <!-- Payment Information -->
           <OrderSummary />
-          <OrderPayment />
+          <!-- <OrderPayment /> -->
 
+          <h1>Give us your payment details: </h1>
+          <Card class="stripe-card"
+            :class='{ complete }'
+            stripe='pk_test_TYooMQauvdEDq54NiTphI7jx'
+            :options='stripeOptions'
+            @change='complete = $event.complete'
+          />
+          <button class="pay-with-stripe" @click="createPayment" :disabled='!complete'>Pay with credit card </button>
 
           <v-btn flat @click="stepper = 2">Back</v-btn>
-          <v-btn
-            color="primary"
-            @click="CreatePayment()"
-          >
-            Complete
-          </v-btn>
+
+          <div class="col-md-12">
+            <div class="col-md-6 offset-md-6">
+              <v-btn
+                color="primary"
+                @click="createPayment()"
+                class="text-center"
+              >
+                Pay Now
+              </v-btn>
+            </div>
+          </div>
+
 
 
         </v-stepper-content>
@@ -94,6 +109,7 @@ import OrderSummary from '@/components/order/Summary'
 import OrderDetails from '@/components/order/Details'
 import OrderPayment from '@/components/order/Payment'
 import OrderReceipt from '@/components/order/Receipt'
+import { Card, createToken } from 'vue-stripe-elements-plus'
 
 export default {
   name: 'Cart',
@@ -102,12 +118,17 @@ export default {
     OrderSummary,
     OrderDetails,
     OrderPayment,
-    OrderReceipt
+    OrderReceipt,
+    Card
 
   },
   data() {
     return {
       stepper: 0,
+      complete: false,
+      stripeOptions: {
+
+      }
     }
   },
 
@@ -149,8 +170,17 @@ export default {
     },
 
     createPayment() {
-      this.$store.dispatch('shop/createPayment')
-      .then(this.stepper = 4)
+      return new Promise((resolve,reject) => {
+        createToken().then( data => {
+          let token = data.token.id
+          this.$store.dispatch('shop/createPayment', token)
+        });
+      })
+      .then((response) => {
+        if (response === 'success') {
+          this.stepper = 4
+        }
+      })
     },
 
     goToDashboard(){

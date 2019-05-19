@@ -117,8 +117,8 @@ export default {
     }
   },
 
-  createPayment({state, commit}) {
-    console.log('create payment')
+  createPayment({state, commit}, token) {
+    console.log(token)
   },
 
 }
