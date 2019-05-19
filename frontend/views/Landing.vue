@@ -50,9 +50,6 @@ export default {
 
   mounted() {
     this.$store.dispatch('products/getProducts')
-    then(() => {
-      this.page = this.currentPage
-    })
   }
 }
 </script>

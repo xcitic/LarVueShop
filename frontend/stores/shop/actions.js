@@ -99,6 +99,26 @@ export default {
       // User should be able to complete order without being logged in!
     }
 
-  }
+  },
+
+  createOrder({state, commit}, payload) {
+    if (auth.checkUser() ) {
+      return new Promise((resolve, reject) => {
+      axios.post('/cart/order', payload)
+            .then(({data}) => {
+              commit('createOrder_success', data)
+              resolve('success')
+            })
+            .catch((err) => {
+              commit('createOrder_error', err)
+              reject('error' + err)
+            })
+      })
+    }
+  },
+
+  createPayment({state, commit}) {
+    console.log('create payment')
+  },
 
 }

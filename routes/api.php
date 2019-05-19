@@ -39,5 +39,6 @@ Route::group(['middleware' => ['auth:api', 'json_response']], function() {
   Route::post('/product/cart/remove/{id}', 'Api\CartController@removeFromCart');
   Route::post('/product/cart/empty', 'Api\CartController@emptyCart');
 
+  Route::post('/cart/order', 'Api\OrderController@createOrder');
   Route::post('/cart/payment', 'Api\OrderController@payment');
 });

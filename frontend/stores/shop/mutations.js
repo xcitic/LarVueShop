@@ -66,4 +66,12 @@ export default {
     state.status = error
   },
 
+  createOrder_success(state, payload) {
+    state.status = 'Success'
+    state.orders = payload
+  },
+
+  createOrder_error(state, error) {
+    state.status = 'Error' + error
+  },
 }
