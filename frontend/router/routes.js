@@ -1,6 +1,7 @@
 // Layouts
 import MainLayout from '@/layouts/MainLayout';
 import DashboardLayout from '@/layouts/DashboardLayout';
+import AdminDashboardLayout from '@/layouts/AdminDashboardLayout';
 
 // View
 import Landing from '@/views/Landing';
@@ -12,6 +13,9 @@ import Cart from '@/views/Cart';
 // Authenticated Views
 import Dashboard from '@/views/Dashboard';
 
+
+// Admin Views
+import AdminDashboard from '@/views/AdminDashboard';
 
 
 const routes = () => {
@@ -28,6 +32,11 @@ const routes = () => {
     {path: '/dashboard', component: DashboardLayout,
       children: [
         {path: '', name: 'Dashboard', component: Dashboard, meta: {requiresAuth: true}}
+      ]},
+
+    {path: '/admin/dashboard', component: AdminDashboardLayout,
+      children: [
+        {path: '', name: 'AdminDashboard', component: AdminDashboard, meta: {requiresAdmin: true}},
       ]}
   ]
 }

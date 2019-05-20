@@ -44,6 +44,17 @@ if(to.matched.some(record => record.meta.guest)) {
     return next('/dashboard')
   }
 }
+
+// If user is admin and want to enter the dashboard, check that
+// the auth.isAdmin() method returns true. else redirect to login page.
+if(to.matched.some(record => record.meta.requiresAdmin)) {
+  if(token) {
+    if(auth.isAdmin()) {
+      return next()
+    }
+  }
+  return next('/login')
+}
   // the default action
   return next()
 })

@@ -42,6 +42,16 @@ export default {
 
   },
 
+  removeFromCart_success(state, payload) {
+    state.status = 'success'
+    state.cart = payload
+    localStorage.setItem('cart', JSON.stringify(state.cart))
+  },
+
+  removeFromCart_error(state, error) {
+    state.status = error.message
+  },
+
   emptyCart(state) {
     state.cart = []
     localStorage.removeItem('cart')
@@ -56,4 +66,12 @@ export default {
     state.status = error
   },
 
+  createOrder_success(state, payload) {
+    state.status = 'Success'
+    state.orders = payload
+  },
+
+  createOrder_error(state, error) {
+    state.status = 'Error' + error
+  },
 }

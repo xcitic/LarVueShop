@@ -1,4 +1,5 @@
 class Auth {
+
   constructor()
   {
     this.token = null
@@ -25,6 +26,15 @@ class Auth {
   {
     let user_token = localStorage.getItem('token');
     if (user_token) {
+      return true
+    }
+    return false
+  }
+
+  isAdmin()
+  {
+    let user = store.state.auth.user
+    if(user.role === 'admin') {
       return true
     }
     return false

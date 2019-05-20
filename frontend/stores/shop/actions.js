@@ -59,6 +59,26 @@ export default {
 
   },
 
+  removeFromCart({commit}, item) {
+    if (auth.checkUser() ) {
+      return new Promise((resolve, reject) => {
+        axios.post(`/product/cart/remove/${item}`)
+              .then(({ data }) => {
+                commit('removeFromCart_success', data)
+                resolve()
+              })
+              .catch((err) => {
+                commit('removeFromCart_error', err)
+                reject()
+              })
+      })
+    }
+    else {
+      // user is not authenticated only modify localStorage
+      commit('removeFromCart_success', payload)
+    }
+  },
+
   fetchCartProducts({commit}) {
     if (auth.checkUser()) {
       return new Promise((resolve, reject) => {
@@ -79,6 +99,26 @@ export default {
       // User should be able to complete order without being logged in!
     }
 
-  }
+  },
+
+  createOrder({state, commit}, payload) {
+    if (auth.checkUser() ) {
+      return new Promise((resolve, reject) => {
+      axios.post('/cart/order', payload)
+            .then(({data}) => {
+              commit('createOrder_success', data)
+              resolve('success')
+            })
+            .catch((err) => {
+              commit('createOrder_error', err)
+              reject('error' + err)
+            })
+      })
+    }
+  },
+
+  createPayment({state, commit}, token) {
+    console.log(token)
+  },
 
 }
