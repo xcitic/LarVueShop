@@ -44,7 +44,8 @@ Route::group(['middleware' => ['auth:api', 'json_response']], function() {
 });
 
 // Admin Routes
-Route::group(['middleware' => ['auth:api', 'json_response']], function() {
+Route::group(['middleware' => ['auth:api', 'admin_auth', 'json_response']], function() {
     Route::get('/admin/dashboard', 'Api\AdminController@dashboard');
+    Route::post('/admin/createProduct', 'Api\AdminController@createProduct');
 
   });
