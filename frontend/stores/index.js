@@ -10,6 +10,7 @@ import auth from './auth'
 import dashboard from './dashboard'
 import products from './products'
 import shop from './shop'
+import admin from './admin'
 
 
 const store = new Vuex.Store({
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
     products,
     auth,
     shop,
-    dashboard
+    dashboard,
+    admin
   }
 })
 

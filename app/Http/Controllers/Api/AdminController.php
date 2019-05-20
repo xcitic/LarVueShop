@@ -3,33 +3,36 @@
 namespace App\Http\Controllers\Api;
 
 
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
+
+
     public function __constructor(Request $request) {
-      if ($request->user()->isAdmin() !== 'admin')
+
+      if ($request->user()->role !== 'admin')
       {
         abort('Unauthorized', 401);
       }
 
-      $this->user = $request->user();
     }
 
     public function dashboard(Request $request) {
-      $user = $this->user;
+      $role = $request->user()->role;
 
-      if ($user->isAdmin())
+
+      if ($role === 'admin')
       {
-        $users = App\User::get()->toArray();
 
-        $products = App\Product::get()->toArray();
+        $users = \App\User::get();
 
-        $orders = App\Order::get()->toArray();
+        $products = \App\Product::get();
 
-        $payments = App\Payment::get()->toArray();
+        $orders = \App\Order::get();
+
+        $payments = \App\Payment::get();
 
         $response = [
           'users' => $users,

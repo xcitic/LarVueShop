@@ -28,7 +28,7 @@ export default {
     NavBar,
     TopNavBar,
     SideNavBar
-  }
+  },
 
 }
 </script>
