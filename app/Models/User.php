@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'address', 'zip', 'country', 'phone'
+        'name', 'email', 'password', 'address', 'zip', 'country', 'phone', 'role'
     ];
 
     /**
@@ -45,5 +45,24 @@ class User extends Authenticatable
 
     public function cart() {
       return $this->hasOne(Cart::class);
+    }
+
+    public function isAdmin() {
+      if($this->role === 'admin')
+      {
+        return true;
+      }
+        return false;
+    }
+
+    public function role() {
+      $role = $this->role;
+      return $role;
+    }
+
+    public function attachRole($role) {
+      $this->role = $role;
+      $this->update();
+      return true;
     }
 }

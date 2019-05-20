@@ -42,3 +42,9 @@ Route::group(['middleware' => ['auth:api', 'json_response']], function() {
   Route::post('/cart/order', 'Api\OrderController@createOrder');
   Route::post('/cart/payment', 'Api\OrderController@payment');
 });
+
+// Admin Routes
+Route::group(['middleware' => ['auth:api', 'admin_auth', 'json_response']], function() {
+    Route::get('/admin/dashboard', 'Api\AdminController@dashboard');
+
+  });

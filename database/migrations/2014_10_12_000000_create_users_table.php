@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('zip')->nullable();
             $table->string('country')->nullable();
             $table->string('phone')->nullable();
+            $table->string('role')->default('user');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
