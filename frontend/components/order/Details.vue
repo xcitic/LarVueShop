@@ -1,12 +1,16 @@
 <template>
   <!-- Form to fill in shipping information and contact details (check if exists on user table.) -->
 
-  <v-container grid-list-xl>
+  <v-container shrink grid-list-xl>
+
+
+
       <v-form
         ref="form"
         v-model="valid"
         lazy-validation
       >
+
       <v-flex xs12 md6>
         <v-text-field
           v-model="user.name"
@@ -62,9 +66,8 @@
             required
           ></v-text-field>
         </v-flex>
+    </v-form>
 
-
-      </v-form>
 
   </v-container>
 

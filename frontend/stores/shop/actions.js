@@ -118,7 +118,17 @@ export default {
   },
 
   createPayment({state, commit}, token) {
-    console.log(token)
+    return new Promise((resolve,reject) => {
+      axios.post('/cart/payment', payload)
+           .then(({data}) => {
+             commit('createPayment_success', data)
+             resolve()
+           })
+           .catch((err) => {
+             commit('createPayment_error', err)
+             reject('error ' + err)
+           })
+    })
   },
 
 }

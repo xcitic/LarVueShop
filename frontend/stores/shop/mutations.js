@@ -74,4 +74,13 @@ export default {
   createOrder_error(state, error) {
     state.status = 'Error' + error
   },
+
+  createPayment_success(state, payload) {
+    state.status = 'Success'
+    state.orders = payload.order
+  },
+
+  createPayment_error(state, error) {
+    state.status = 'Error ' + error
+  }
 }

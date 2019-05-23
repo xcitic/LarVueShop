@@ -172,8 +172,16 @@ export default {
     createPayment() {
       return new Promise((resolve,reject) => {
         createToken().then( data => {
-          let token = data.token.id
-          this.$store.dispatch('shop/createPayment', token)
+          let payload = {
+            name: this.user.name,
+            email: this.user.email,
+            country: this.user.country,
+            address: this.user.address,
+            zip: this.user.zip,
+            phone: this.user.phone,
+            token: data.token.id
+          }
+          this.$store.dispatch('shop/createPayment', payload)
         });
       })
       .then((response) => {
