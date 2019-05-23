@@ -117,11 +117,12 @@ export default {
     }
   },
 
-  createPayment({state, commit}, token) {
+  createPayment({state, commit}, payload) {
     return new Promise((resolve,reject) => {
       axios.post('/cart/payment', payload)
            .then(({data}) => {
              commit('createPayment_success', data)
+             commit('emptyCart')
              resolve()
            })
            .catch((err) => {

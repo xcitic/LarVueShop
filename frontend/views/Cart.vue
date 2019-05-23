@@ -5,15 +5,11 @@
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="stepper > 2" step="2">Shipping Details</v-stepper-step>
+        <v-stepper-step :complete="stepper > 2" step="2">Shipping & Payment</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="stepper > 3" step="3">Payment</v-stepper-step>
-
-        <v-divider></v-divider>
-
-          <v-stepper-step :complete="stepper > 3" step="4">Receipt</v-stepper-step>
+          <v-stepper-step :complete="stepper > 2" step="3">Receipt</v-stepper-step>
       </v-stepper-header>
 
       <v-stepper-items>
@@ -36,9 +32,9 @@
 
         </v-stepper-content>
 
-        <v-stepper-content step="2">
+        <!-- <v-stepper-content step="2"> -->
           <!-- Order Summary and Shipping information -->
-          <OrderSummary />
+          <!-- <OrderSummary />
           <OrderDetails :user="user" />
 
           <v-btn flat @click="stepper = 1">Back</v-btn>
@@ -49,28 +45,55 @@
             Continue
           </v-btn>
 
-        </v-stepper-content>
+        </v-stepper-content> -->
 
-        <v-stepper-content step="3">
+        <v-stepper-content step="2">
           <!-- Payment Information -->
           <OrderSummary />
           <!-- <OrderPayment /> -->
+          <div class="col-md-12">
 
-          <h1>Give us your payment details: </h1>
-          <Card class="stripe-card"
-            :class='{ complete }'
-            stripe='pk_test_TYooMQauvdEDq54NiTphI7jx'
-            :options='stripeOptions'
-            @change='complete = $event.complete'
-          />
-          <button class="pay-with-stripe" @click="createPayment" :disabled='!complete'>Pay with credit card </button>
+            <div class="row">
 
-          <v-btn flat @click="stepper = 2">Back</v-btn>
+            <div class="col-md-6">
+              <div class="card ma-2">
+                <h2 class="text-center my-2">Shipping Details</h2>
+                  <OrderDetails :user="user" :complete="complete" />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card ma-2">
+                <h2 class="text-center my-2">Payment Details</h2>
+                <Card class="stripe-card elevation-1 pa-2"
+                  :class='{ complete }'
+                  stripe='pk_test_c41Zq4wUeOtNpp73DYLHjFAS'
+                  :options='stripeOptions'
+                  @change='complete = $event.complete'
+                />
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+          <v-container>
+            <div class="col-md-12">
+
+            </div>
+
+      </v-container>
+
+
+          <v-btn flat @click="stepper = 1">Back</v-btn>
 
           <div class="col-md-12">
             <div class="col-md-6 offset-md-6">
               <v-btn
                 color="primary"
+                :disabled="!complete"
                 @click="createPayment()"
                 class="text-center"
               >
@@ -83,11 +106,11 @@
 
         </v-stepper-content>
 
-        <v-stepper-content step="4">
+        <v-stepper-content step="3">
           <!-- Payment Receipt -->
           <OrderReceipt />
 
-          <v-btn flat @click="stepper = 3">Back</v-btn>
+          <v-btn flat @click="stepper = 2">Back</v-btn>
 
           <v-btn
             color="primary"
@@ -150,6 +173,8 @@ export default {
       this.$router.push('/')
     },
 
+
+    // Replaced by createPayment which does both.
     createOrder() {
         let payload = {
           name: this.user.name,
@@ -169,7 +194,16 @@ export default {
       })
     },
 
+
+
+    validate() {
+     if (this.$refs.form.validate()) {
+       return true
+     }
+    },
+
     createPayment() {
+      // Validate Shipping details before creating a new Promise.
       return new Promise((resolve,reject) => {
         createToken().then( data => {
           let payload = {
@@ -186,7 +220,7 @@ export default {
       })
       .then((response) => {
         if (response === 'success') {
-          this.stepper = 4
+          this.stepper = 3
         }
       })
     },
@@ -201,4 +235,31 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.card-stripe {
+  box-sizing: border-box;
+
+  height: 40px;
+
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.card-stripe--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.card-stripe--invalid {
+  border-color: #fa755a;
+}
+
+.card-stripe--webkit-autofill {
+  background-color: #fefde5 !important;
+}
 </style>

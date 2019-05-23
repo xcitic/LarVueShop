@@ -8,6 +8,7 @@ use App\CartItem;
 use App\Product;
 use App\Order;
 use App\Payment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -138,7 +139,7 @@ class OrderController extends Controller
             'amount' => $total * 100,
             'currency' => 'usd',
             'description' => 'VueShop Products',
-            'source' => $request->stripeToken,
+            'source' => $request->token,
             'capture' => true,
           ]);
           $payment_status = $charge->status;
@@ -154,19 +155,25 @@ class OrderController extends Controller
           'token' => $payment_token,
           'status' => $payment_status,
           'amount' => $total,
+          'charge_time' => Carbon::now(),
         ]);
         $payment->save();
 
         $order->payment_id = $payment->id;
+        $order->order_status = 'paid';
+        $order->update();
 
-        $response = [$order, $payment];
+        // $response = [$order, $payment];
+        $cart->status = 'complete';
+        $cart->update();
 
-        return response($response, 201);
+        return response('success', 201);
 
 
         } catch(Exception $e) {
           return response($e, 422);
         }
+
       }
 
       return response('Unauthorized', 401);
