@@ -32,7 +32,19 @@ class DashboardController extends Controller
 
     return response('Unauthorized', 401);
 
+  }
+
+  public function updateUser(Request $request) {
+    $user = $request->user();
+
+    if($user) {
+      // validate data
+      // update new data
+      // save
+      // return object
+    }
 
   }
+
 
 }

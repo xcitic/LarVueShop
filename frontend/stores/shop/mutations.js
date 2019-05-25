@@ -29,18 +29,28 @@ export default {
 
   addToLocalCart_success(state, payload) {
     state.status = 'success'
-    let localDb = JSON.parse(localStorage.getItem('cart'))
-    if(localDb) {
-      // TODO check if product is in array, if yes increase the quantity.
-      state.cart = localDb.concat(payload)
-      localStorage.setItem('cart', JSON.stringify(state.cart))
+    // check if product exists in cart
+    let cartIndex = state.cart.indexOf(payload.product)
+    if (cartIndex >= 0) {
+      state.cart[cartIndex].quantity += payload.quantity
     }
     else {
-      state.cart = payload
-      localStorage.setItem('cart', JSON.stringify(state.cart))
+      state.cart = [...state.cart, payload.product]
     }
 
+    localStorage.setItem('cart', JSON.stringify(state.cart))
+
   },
+
+  fetchLocalCart_success(state) {
+    state.status = 'success'
+    let localDb = JSON.parse(localStorage.getItem('cart'))
+    if(localDb) {
+      state.cart_products = localDb
+    }
+  },
+
+
 
   removeFromCart_success(state, payload) {
     state.status = 'success'

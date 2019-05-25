@@ -32,23 +32,8 @@
 
         </v-stepper-content>
 
-        <!-- <v-stepper-content step="2"> -->
-          <!-- Order Summary and Shipping information -->
-          <!-- <OrderSummary />
-          <OrderDetails :user="user" />
-
-          <v-btn flat @click="stepper = 1">Back</v-btn>
-          <v-btn
-            color="primary"
-            @click="createOrder()"
-          >
-            Continue
-          </v-btn>
-
-        </v-stepper-content> -->
-
         <v-stepper-content step="2">
-          <!-- Payment Information -->
+          <!-- Shipping Information & Payment  -->
           <OrderSummary />
           <!-- <OrderPayment /> -->
           <div class="col-md-12">
@@ -77,14 +62,12 @@
           </div>
         </div>
 
-
-
           <v-container>
             <div class="col-md-12">
 
             </div>
 
-      </v-container>
+          </v-container>
 
 
           <v-btn flat @click="stepper = 1">Back</v-btn>
@@ -216,7 +199,7 @@ export default {
             token: data.token.id
           }
           this.$store.dispatch('shop/createPayment', payload)
-        });
+        })
       })
       .then((response) => {
         if (response === 'success') {

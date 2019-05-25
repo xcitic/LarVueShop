@@ -35,7 +35,7 @@ export default {
 },
 
 
-  addToCart({commit}, payload) {
+  addToCart({commit, rootState, state}, payload) {
     // If user is authenticated create api promise
     if( auth.checkUser() ) {
       return new Promise((resolve, reject) => {
@@ -52,8 +52,14 @@ export default {
       }
       else {
         // if user is not authenticated push to localStorage
-
-          commit('addToLocalCart_success', payload)
+          let id = payload.product_id - 1
+          let product = rootState.products.products.data[id]
+          product.quantity = payload.quantity
+          let data = {
+            product: product,
+            quantity: payload.quantity
+          }
+          commit('addToLocalCart_success', data)
 
       }
 
@@ -94,9 +100,7 @@ export default {
       })
     }
     else {
-      // TODO user is not authenticated
-      // Fetch products from localStorage
-      // User should be able to complete order without being logged in!
+        commit('fetchLocalCart_success')
     }
 
   },
