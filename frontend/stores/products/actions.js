@@ -32,8 +32,8 @@ export default {
       axios.post('/product/like/' + id)
           .then(({ data }) => {
             // decrement id by 1 to match array start at 0
-            let id = data.id - 1
-            commit('like_success', id)
+            let array_index = data.id - 1
+            commit('like_success', array_index)
             resolve()
           })
           .catch((err) => {

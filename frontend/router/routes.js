@@ -16,6 +16,7 @@ import Dashboard from '@/views/Dashboard';
 
 // Admin Views
 import AdminDashboard from '@/views/AdminDashboard';
+import CreateProduct from '@/views/CreateProduct';
 
 
 const routes = () => {
@@ -34,9 +35,10 @@ const routes = () => {
         {path: '', name: 'Dashboard', component: Dashboard, meta: {requiresAuth: true}}
       ]},
 
-    {path: '/admin/dashboard', component: AdminDashboardLayout,
+    {path: '/admin/dashboard/', component: AdminDashboardLayout,
       children: [
         {path: '', name: 'AdminDashboard', component: AdminDashboard, meta: {requiresAdmin: true}},
+        {path: 'product/create', name: 'CreateProduct', component: CreateProduct, meta: {requiresAdmin: true}},
       ]}
   ]
 }

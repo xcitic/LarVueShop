@@ -23,17 +23,17 @@ class Order extends Model
 
     public function owner()
     {
-      $this->belongsTo('App\User');
+      return $this->belongsTo('App\User');
     }
 
     public function cart()
     {
-      $this->hasOne('App\Cart');
+      return $this->hasOne('App\Cart');
     }
 
     public function payment()
     {
-      $this->hasOne('App\Payment');
+      return $this->hasOne('App\Payment', 'id', 'payment_id');
     }
 
 }

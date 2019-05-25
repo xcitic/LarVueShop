@@ -12,7 +12,7 @@
 
 
 <script>
-var stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx')
+var stripe = Stripe('pk_test_c41Zq4wUeOtNpp73DYLHjFAS')
 var elements = stripe.elements()
 let card = undefined
 

@@ -7,6 +7,8 @@ use App\Cart;
 use App\CartItem;
 use App\Product;
 use App\Order;
+use App\Payment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -96,22 +98,85 @@ class OrderController extends Controller
         $total += $price * $item->quantity;
       }
 
-      return response($total, 200);
-
       if($user)
       {
+        $validator = Validator::make($request->all(), [
+          'name' => 'required|string|max:255',
+          'email' => 'required|string|email|max:255',
+          'country' => 'required|string|max:50',
+          'address' => 'required|string|max:255',
+          'zip' => 'required|string|max:25',
+          'phone' => 'required|string|max:50',
+          'token' => 'required|string|max:255',
+        ]);
+
+        if($validator->fails())
+        {
+          return response([ 'errors' => $validator->errors()->all() ], 422);
+        }
+
+        $cart = $user->cart;
+
+        $order = Order::create([
+          'order_status'      => 'created',
+          'shipping_address'  => $request->address . ' ' . $request->zip . ' ' . $request->country,
+          'shipping_type'     => 'default',
+          'contanct_person'   => $user->name,
+          'contact_number'    => $request->phone,
+          'user_id'           => $user->id,
+          'cart_id'           => $cart->id
+        ]);
+
+        $order->save();
+
+        $order_id = $order->id;
+
         // set the stripe private key
         \Stripe\Stripe::setApiKey(config('keys.stripe_token_private'));
 
         try {
           $charge = \Stripe\Charge::create([
             'amount' => $total * 100,
-
+            'currency' => 'usd',
+            'description' => 'VueShop Products',
+            'source' => $request->token,
+            'capture' => true,
           ]);
+          $payment_status = $charge->status;
+          $payment_type = $charge->object;
+          $payment_token = $charge->id;
+
+
+
+        $payment = Payment::create([
+          'user_id' => $user->id,
+          'order_id' => $order_id,
+          'type' => $payment_type,
+          'token' => $payment_token,
+          'status' => $payment_status,
+          'amount' => $total,
+          'charge_time' => Carbon::now(),
+        ]);
+        $payment->save();
+
+        $order->payment_id = $payment->id;
+        $order->order_status = 'paid';
+        $order->update();
+
+        // $response = [$order, $payment];
+        $cart->status = 'complete';
+        $cart->update();
+
+        return response('success', 201);
+
+
         } catch(Exception $e) {
           return response($e, 422);
         }
+
       }
+
+      return response('Unauthorized', 401);
 
     }
 }

@@ -16,7 +16,8 @@ export default {
   },
 
   like_success(state, id) {
-    state.products[id].likes++
+    state.status = 'success'
+    state.products.data[id].likes++
   },
 
   like_error(state, error) {

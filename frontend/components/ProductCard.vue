@@ -74,6 +74,7 @@ export default {
     return {
       liked: false,
       inCart: false,
+      quantity: 1,
     }
   },
 

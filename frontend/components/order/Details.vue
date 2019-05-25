@@ -1,13 +1,17 @@
 <template>
   <!-- Form to fill in shipping information and contact details (check if exists on user table.) -->
 
-  <v-container grid-list-xl>
+  <v-container shrink grid-list-xl>
+
+
+
       <v-form
         ref="form"
         v-model="valid"
         lazy-validation
       >
-      <v-flex xs12 md6>
+
+      <v-flex>
         <v-text-field
           v-model="user.name"
           :rules="nameRules"
@@ -16,7 +20,7 @@
         ></v-text-field>
       </v-flex>
 
-        <v-flex xs12 md6>
+        <v-flex >
           <v-text-field
             v-model="user.email"
             :rules="emailRules"
@@ -26,7 +30,7 @@
         </v-flex>
 
 
-        <v-flex xs12 md6>
+        <v-flex>
           <v-text-field
             v-model="user.country"
             :rules="countryRules"
@@ -35,7 +39,7 @@
           ></v-text-field>
         </v-flex>
 
-        <v-flex xs12 md6>
+        <v-flex>
           <v-text-field
             v-model="user.address"
             :rules="addressRules"
@@ -44,7 +48,7 @@
           ></v-text-field>
         </v-flex>
 
-        <v-flex xs12 md6>
+        <v-flex>
           <v-text-field
             v-model="user.zip"
             :rules="zipRules"
@@ -54,7 +58,7 @@
         </v-flex>
 
 
-        <v-flex xs12 md6>
+        <v-flex>
           <v-text-field
             v-model="user.phone"
             :rules="phoneRules"
@@ -62,20 +66,18 @@
             required
           ></v-text-field>
         </v-flex>
+    </v-form>
 
-
-      </v-form>
 
   </v-container>
 
 </template>
 
 <script>
-import { mapState } from 'vuex'
 
 export default {
   name: 'OrderDetails',
-  props: [ 'user' ],
+  props: [ 'user', 'complete' ],
 
   data() {
     return {
@@ -102,6 +104,8 @@ export default {
       ],
     }
   },
+
+
 
 }
 </script>

@@ -24,7 +24,7 @@ class Auth {
 
   checkUser()
   {
-    let user_token = localStorage.getItem('token');
+    let user_token = store.state.auth.authToken
     if (user_token) {
       return true
     }

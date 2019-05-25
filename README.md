@@ -15,6 +15,7 @@
   <a href="https://github.com/xcitic/LarVueShop/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license">
   </a>
+  [![HitCount](http://hits.dwyl.io/xcitic/https://githubcom/xcitic/LarVueShop.svg)](http://hits.dwyl.io/xcitic/https://githubcom/xcitic/LarVueShop)
 </p>
 
 ## Introduction

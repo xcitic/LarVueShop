@@ -7,7 +7,10 @@ export default {
   namespaced: true,
 
   state: {
-    isCollapse: false
+    isCollapse: false,
+    status: '',
+    orders: [],
+    payments: [],
   },
 
   getters,
