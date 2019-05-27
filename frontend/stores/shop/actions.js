@@ -18,7 +18,7 @@ export default {
       // If user is not logged in
     else {
 
-      let localDb = localStorage.getItem('cart')
+      const localDb = localStorage.getItem('cart')
         if(localDb === null) {
         // Create a new localStorage and set the cart to empty array
           commit('createCart')
@@ -26,10 +26,8 @@ export default {
         else
         {
           // If localStorage exists, then fetch and parse it
-          // let data = JSON.parse(localDb);
-          // console.log(localDb)
-          // console.log(data)
-          commit('fetchCart_success', JSON.parse(localDb))
+          let data = JSON.parse(localDb);
+          commit('fetchCart_success', data)
         }
     }
 },
@@ -55,17 +53,25 @@ export default {
           let id = payload.product_id - 1
           let product = rootState.products.products.data[id]
           product.quantity = payload.quantity
+
           let data = {
             product: product,
             quantity: payload.quantity
           }
-          commit('addToLocalCart_success', data)
 
-      }
-
+          return new Promise((resolve, reject) => {
+            commit('addToLocalCart_success', data)
+              localStorage.setItem('cart', JSON.stringify(state.cart))
+              resolve()
+            .catch((err) => {
+              commit('addToLocalCart_error', err)
+              reject()
+            })
+        })
+    }
   },
 
-  removeFromCart({commit}, item) {
+  removeFromCart({commit, state}, item) {
     if (auth.checkUser() ) {
       return new Promise((resolve, reject) => {
         axios.post(`/product/cart/remove/${item}`)
@@ -81,7 +87,8 @@ export default {
     }
     else {
       // user is not authenticated only modify localStorage
-      commit('removeFromCart_success', payload)
+      commit('removeFromCart_success', item)
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     }
   },
 

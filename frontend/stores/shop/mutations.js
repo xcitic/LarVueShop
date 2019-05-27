@@ -27,35 +27,40 @@ export default {
     state.status = error.message
   },
 
-  addToLocalCart_success(state, payload) {
+  addToLocalCart_success(state, data) {
     state.status = 'success'
     // check if product exists in cart
-    let cartIndex = state.cart.indexOf(payload.product)
+    let cartIndex = state.cart.findIndex((product) => {
+        return product.id === data.product.id
+    })
     if (cartIndex >= 0) {
-      state.cart[cartIndex].quantity += payload.quantity
+      return state.cart[cartIndex].quantity+= data.quantity
     }
     else {
-      state.cart = [...state.cart, payload.product]
+      state.cart = [...state.cart, data.product]
     }
 
-    localStorage.setItem('cart', JSON.stringify(state.cart))
+  },
 
+  addToLocalCart_error(state, error) {
+    state.status = 'Error: ' + error
   },
 
   fetchLocalCart_success(state) {
     state.status = 'success'
-    let localDb = JSON.parse(localStorage.getItem('cart'))
+    const localDb = JSON.parse(localStorage.getItem('cart'))
     if(localDb) {
       state.cart_products = localDb
     }
   },
 
 
-
-  removeFromCart_success(state, payload) {
+  removeFromCart_success(state, item) {
     state.status = 'success'
-    state.cart = payload
-    localStorage.setItem('cart', JSON.stringify(state.cart))
+    let productToRemove = state.cart.findIndex((product) => {
+      return product.id === item
+    })
+    state.cart.splice(productToRemove, 1)
   },
 
   removeFromCart_error(state, error) {

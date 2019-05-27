@@ -33,11 +33,11 @@
 
 
 
-                <v-card-actions>
+                <!-- <v-card-actions>
                     <div class="m-auto text-center">
                         <v-rating readonly v-model="product.rating"></v-rating>
                     </div>
-                </v-card-actions>
+                </v-card-actions> -->
 
                 <v-card-actions>
 
@@ -91,9 +91,12 @@ export default {
     addToCart() {
       let payload = {
         product_id: this.product.id,
-        quantity: 1
+        quantity: this.quantity
       }
       this.$store.dispatch('shop/addToCart', payload)
+      .then(() => {
+        return
+      })
     },
 
 
