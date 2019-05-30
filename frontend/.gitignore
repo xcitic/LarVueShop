@@ -1,9 +1,0 @@
-.env*
-.phpunit.result.cache
-npm-debug.log
-yarn-error.log
-yarn.lock
-node_modules/
-dist/
-npm-debug.log
-yarn-error.log
