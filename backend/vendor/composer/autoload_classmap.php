@@ -13,6 +13,7 @@ return array(
     'App\\Http\\Controllers\\Api\\AdminController' => $baseDir . '/app/Http/Controllers/Api/AdminController.php',
     'App\\Http\\Controllers\\Api\\AuthController' => $baseDir . '/app/Http/Controllers/Api/AuthController.php',
     'App\\Http\\Controllers\\Api\\CartController' => $baseDir . '/app/Http/Controllers/Api/CartController.php',
+    'App\\Http\\Controllers\\Api\\DashboardController' => $baseDir . '/app/Http/Controllers/Api/DashboardController.php',
     'App\\Http\\Controllers\\Api\\OrderController' => $baseDir . '/app/Http/Controllers/Api/OrderController.php',
     'App\\Http\\Controllers\\Api\\PaymentController' => $baseDir . '/app/Http/Controllers/Api/PaymentController.php',
     'App\\Http\\Controllers\\Api\\ProductController' => $baseDir . '/app/Http/Controllers/Api/ProductController.php',
