@@ -22,6 +22,9 @@ Route::group(['middleware' => ['json_response']], function() {
   Route::post('/product/like/{id}', 'Api\ProductController@like');
   Route::post('/product/dislike/{id}', 'Api\ProductController@dislike');
 
+  // Guest Ordering
+  Route::post('/cart/order/guest', 'Api\OrderController@guestOrder');
+  Route::post('/cart/payment/guest', 'Api\PaymentController@guestPayment');
 
 });
 
@@ -36,7 +39,9 @@ Route::group(['middleware' => ['auth:api', 'json_response']], function() {
   Route::post('/product/cart/empty', 'Api\CartController@emptyCart');
 
   Route::post('/cart/order', 'Api\OrderController@createOrder');
+
   Route::post('/cart/payment', 'Api\OrderController@payment');
+
 
   Route::get('/dashboard/orders', 'Api\DashboardController@getOrders');
 });

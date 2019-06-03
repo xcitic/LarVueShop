@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $table = 'Orders';
+    protected $table = 'orders';
 
     protected $fillable = [
       'order_status',
@@ -15,6 +15,7 @@ class Order extends Model
       'shipping_price',
       'contact_person',
       'contact_number',
+      'total_price',
       'tax_number',
       'user_id',
       'cart_id',
@@ -33,7 +34,7 @@ class Order extends Model
 
     public function payment()
     {
-      return $this->hasOne('App\Payment', 'id', 'payment_id');
+      return $this->hasOne('App\Payment');
     }
 
 }

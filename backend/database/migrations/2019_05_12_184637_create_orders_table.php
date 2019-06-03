@@ -22,12 +22,12 @@ class CreateOrdersTable extends Migration
             $table->string('contact_person')->nullable();
             $table->string('contact_number')->nullable();
             $table->string('tax_number')->nullable();
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('cart_id')->unsigned();
+            $table->float('total_price')->nullable();
+            $table->string('user_id')->unsigned();
+            // $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('cart_id')->unsigned()->nullable();
             $table->foreign('cart_id')->references('id')->on('carts');
             $table->integer('payment_id')->unsigned()->nullable();
-            $table->foreign('payment_id')->references('id')->on('payments');
             $table->timestamps();
         });
 

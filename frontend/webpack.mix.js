@@ -20,6 +20,10 @@ mix.webpackConfig({
   }
 });
 
-mix.js('./app.js', '../backend/public/js/app.js')
+mix.browserSync('localhost:8000')
+mix.disableNotifications()
+
+mix.version()
+    .js('./app.js', '../backend/public/js/app.js')
     .sass('./assets/sass/app.scss', '../backend/public/css/app.css')
-    .version();
+    .setPublicPath('../backend/public/');

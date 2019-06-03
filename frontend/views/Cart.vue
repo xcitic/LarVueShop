@@ -23,6 +23,7 @@
             <v-btn
               color="primary"
               @click="stepper = 2"
+
             >
               Checkout
             </v-btn>
@@ -43,7 +44,9 @@
             <div class="col-md-6">
               <div class="card ma-2">
                 <h2 class="text-center my-2">Shipping Details</h2>
-                  <OrderDetails :user="user" :complete="complete" />
+
+                  <OrderDetails :user="user" :complete="complete" v-if="user" />
+                  <OrderDetailsNoUser :user="userDetails" :complete="complete" v-else />
               </div>
             </div>
 
@@ -116,6 +119,7 @@ import OrderDetails from '@/components/order/Details'
 import OrderPayment from '@/components/order/Payment'
 import OrderReceipt from '@/components/order/Receipt'
 import { Card, createToken } from 'vue-stripe-elements-plus'
+import OrderDetailsNoUser from '@/components/order/DetailsNoUser'
 
 export default {
   name: 'Cart',
@@ -123,6 +127,7 @@ export default {
     CartContent,
     OrderSummary,
     OrderDetails,
+    OrderDetailsNoUser,
     OrderPayment,
     OrderReceipt,
     Card
@@ -134,6 +139,14 @@ export default {
       complete: false,
       stripeOptions: {
 
+      },
+      userDetails: {
+        name: '',
+        email: '',
+        country: '',
+        address: '',
+        zip: '',
+        phone: ''
       }
     }
   },
@@ -152,32 +165,10 @@ export default {
     fetchProducts() {
       this.$store.dispatch('shop/fetchCartProducts')
     },
+
     backToShopping() {
       this.$router.push('/')
     },
-
-
-    // Replaced by createPayment which does both.
-    createOrder() {
-        let payload = {
-          name: this.user.name,
-          email: this.user.email,
-          country: this.user.country,
-          address: this.user.address,
-          zip: this.user.zip,
-          phone: this.user.phone
-        }
-      // Run validation before dispatching
-      this.$store.dispatch('shop/createOrder', payload)
-      // Catch the promise resolve / rejection
-      .then((response) => {
-        if (response === 'success') (
-          this.stepper = 3
-        )
-      })
-    },
-
-
 
     validate() {
      if (this.$refs.form.validate()) {
@@ -186,35 +177,80 @@ export default {
     },
 
     createPayment() {
+      // when user is logged in user returns object
+      if (this.user) {
+        this.userPayment()
+      } else {
+        this.guestPayment()
+      }
+
+    },
+
+    userPayment() {
       // Validate Shipping details before creating a new Promise.
       return new Promise((resolve,reject) => {
         createToken().then( data => {
-          let payload = {
-            name: this.user.name,
-            email: this.user.email,
-            country: this.user.country,
-            address: this.user.address,
-            zip: this.user.zip,
-            phone: this.user.phone,
-            token: data.token.id
-          }
-          this.$store.dispatch('shop/createPayment', payload)
-        })
-      })
-      .then((response) => {
-        if (response === 'success') {
+            let payload = {
+              name: this.user.name,
+              email: this.user.email,
+              country: this.user.country,
+              address: this.user.address,
+              zip: this.user.zip,
+              phone: this.user.phone,
+              token: data.token.id
+            }
+            this.$store.dispatch('shop/createPayment', payload)
+          })
+      }).then(() => {
+        // If payment was successful return the Receipt & Order Confirmation
+        if (this.$state.shop.status === 'success') {
           this.stepper = 3
         }
       })
     },
 
+    guestPayment() {
+      // Parse and send the cart
+      return new Promise((resolve, reject) => {
+          this.guestOrder()
+            // if the cart was created successfully, initiate payment
+            createToken().then( data => {
+              let payload = {
+                name: this.userDetails.name,
+                email: this.userDetails.email,
+                country: this.userDetails.country,
+                address: this.userDetails.address,
+                zip: this.userDetails.zip,
+                phone: this.userDetails.phone,
+                token: data.token.id
+              }
+              this.$store.dispatch('shop/guestPayment', payload)
+            })
+          })
+            .then(() => {
+              console.log(this.$state.shop.status)
+              // If payment was successful return the Receipt & Order Confirmation
+              if (this.$state.shop.status === 'success') {
+                  this.stepper = 3
+              }
+            })
+      },
+
+
+
+    guestOrder() {
+      let payload = this.products
+      this.$store.dispatch('shop/guestOrder', payload)
+    },
+
+
+
     goToDashboard(){
       this.$router.push('/dashboard')
     },
 
+    }
   }
-
-}
 </script>
 
 <style lang="css" scoped>

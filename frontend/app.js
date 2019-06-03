@@ -23,7 +23,8 @@ Vue.use(ElementUI)
 
 
 // Base URL for the API
-axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
+const host = 'http://localhost:8000'
+axios.defaults.baseURL = 'http://localhost:8000/api'
 
 // Make auth global
 window.auth = auth;

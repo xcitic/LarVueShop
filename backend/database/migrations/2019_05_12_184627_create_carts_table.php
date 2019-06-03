@@ -15,8 +15,8 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('user_id')->unsigned();
+            // $table->foreign('user_id')->references('id')->on('users');
             $table->string('status')->default('active'); // Cart lifecycle (created = active, deleted = closed, ordered = completed)
             $table->timestamps();
         });

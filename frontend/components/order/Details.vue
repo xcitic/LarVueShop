@@ -82,12 +82,6 @@ export default {
   data() {
     return {
       valid: true,
-      'user.name': '',
-      'user.email': '',
-      'user.country': '',
-      'user.address': '',
-      'user.zip': '',
-      'user.phone': '',
       nameRules: [
         v => !!v || 'Name is required',
         v => (v && v.length <= 50) || 'Name must be less than 50 characters'

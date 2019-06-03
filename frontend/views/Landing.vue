@@ -44,10 +44,6 @@ export default {
     }
   },
 
-  beforeMounted() {
-
-  },
-
   mounted() {
     this.$store.dispatch('products/getProducts')
   }

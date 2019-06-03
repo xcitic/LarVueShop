@@ -73,7 +73,7 @@ export default {
   },
 
   fetchCartProducts_success(state, payload) {
-    state.status = 'Success'
+    state.status = 'success'
     state.cart_products = payload
   },
 
@@ -82,7 +82,7 @@ export default {
   },
 
   createOrder_success(state, payload) {
-    state.status = 'Success'
+    state.status = 'success'
     state.orders = payload
   },
 
@@ -91,7 +91,7 @@ export default {
   },
 
   createPayment_success(state, payload) {
-    state.status = 'Success'
+    state.status = 'success'
     state.orders = payload.order
   },
 

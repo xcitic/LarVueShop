@@ -112,35 +112,47 @@ export default {
 
   },
 
-  createOrder({state, commit}, payload) {
-    if (auth.checkUser() ) {
-      return new Promise((resolve, reject) => {
-      axios.post('/cart/order', payload)
-            .then(({data}) => {
-              commit('createOrder_success', data)
-              resolve('success')
-            })
-            .catch((err) => {
-              commit('createOrder_error', err)
-              reject('error' + err)
-            })
-      })
-    }
-  },
-
-  createPayment({state, commit}, payload) {
+  createPayment({commit, state}, payload) {
     return new Promise((resolve,reject) => {
       axios.post('/cart/payment', payload)
            .then(({data}) => {
              commit('createPayment_success', data)
              commit('emptyCart')
-             resolve()
+             resolve('success')
+           })
+           .catch((err) => {
+             commit('createPayment_error', err)
+             reject('error ' + err)
+           })
+        })
+    },
+
+  guestOrder({state, commit}, payload) {
+    return new Promise((resolve, reject) => {
+      axios.post('/cart/order/guest', payload)
+      .then(({data}) => {
+          resolve('success')
+      })
+      .catch((err) => {
+        commit('createOrder_error', err)
+        reject(err)
+      })
+    })
+
+  },
+
+  guestPayment({commit, state}, payload) {
+    return new Promise((resolve, reject) => {
+      axios.post('/cart/payment/guest', payload)
+           .then(({data}) => {
+             commit('createPayment_success', data)
+             commit('emptyCart')
+             resolve('success')
            })
            .catch((err) => {
              commit('createPayment_error', err)
              reject('error ' + err)
            })
     })
-  },
-
+  }
 }
